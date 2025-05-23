@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Industrial de Lavandería Hotelera</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="wizard-container">
+        <h1 class="wizard-title">Calculadora Industrial de Lavandería Hotelera</h1>
+        <div id="wizard-steps">
+            <!-- Paso 1: Datos generales -->
+            <form id="step1" class="wizard-step active">
+                <h2>Paso 1: Datos Generales</h2>
+                <div class="input-group">
+                    <label for="unit">Unidad:</label>
+                    <select id="unit" required>
+                        <option value="kg">Kilogramos (kg)</option>
+                        <option value="lb">Libras (lb)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="rooms">Número de Habitaciones:</label>
+                    <input type="number" id="rooms" required min="1">
+                </div>
+                <div class="input-group">
+                    <label for="hotelType">Tipo de Hotel:</label>
+                    <select id="hotelType" required>
+                        <option value="Económico">Económico</option>
+                        <option value="Estancia Prolongada">Estancia Prolongada</option>
+                        <option value="Servicio Limitado">Servicio Limitado</option>
+                        <option value="Servicio Selecto">Servicio Selecto</option>
+                        <option value="Lujo">Lujo</option>
+                        <option value="Resort">Resort</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="occupancy">Ocupación Promedio (%):</label>
+                    <input type="number" id="occupancy" required min="1" max="100">
+                </div>
+                <div class="input-group">
+                    <label for="operatingDays">Días de Operación por Semana:</label>
+                    <input type="number" id="operatingDays" required min="1" max="7">
+                </div>
+                <div class="input-group">
+                    <label for="operatingHours">Horas de Operación por Día:</label>
+                    <input type="number" id="operatingHours" required min="1" max="24">
+                </div>
+                <button type="button" class="wizard-next" id="toStep2">Siguiente</button>
+            </form>
+            <!-- Paso 2: Cargas adicionales -->
+            <form id="step2" class="wizard-step">
+                <h2>Paso 2: Cargas Adicionales</h2>
+                <div class="input-group">
+                    <label>¿Utiliza ropa de cama especial (edredones, almohadas extra, etc.)?</label>
+                    <select id="specialBedding" required>
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>¿El hotel tiene servicio de F&B (restaurante/banquetes)?</label>
+                    <select id="hasFB" required>
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <div id="fbFields" style="display:none;">
+                    <div class="input-group">
+                        <label for="fbSeats">Número de asientos en restaurante(s)/salones:</label>
+                        <input type="number" id="fbSeats" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="fbMeals">Comidas servidas por asiento por día:</label>
+                        <input type="number" id="fbMeals" min="0" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="fbLinenType">Tipo de lencería predominante en F&B:</label>
+                        <select id="fbLinenType">
+                            <option value="Solo Servilletas">Solo Servilletas</option>
+                            <option value="Servilletas y Manteles">Servilletas y Manteles</option>
+                            <option value="Solo Manteles">Solo Manteles</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>¿El hotel tiene piscina, health club o spa?</label>
+                    <select id="hasPoolSpa" required>
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <div id="poolSpaFields" style="display:none;">
+                    <div class="input-group">
+                        <label for="poolSpaUsers">Usuarios diarios de piscina/spa/gimnasio:</label>
+                        <input type="number" id="poolSpaUsers" min="0">
+                    </div>
+                </div>
+                <button type="button" class="wizard-prev" id="toStep1">Anterior</button>
+                <button type="button" class="wizard-next" id="toStep3">Siguiente</button>
+            </form>
+            <!-- Paso 3: Parámetros de operación -->
+            <form id="step3" class="wizard-step">
+                <h2>Paso 3: Parámetros de Operación</h2>
+                <div class="input-group">
+                    <label for="soilLevel">Nivel de Suciedad de la Ropa:</label>
+                    <select id="soilLevel" required>
+                        <option value="Ligero">Ligero</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Pesado">Pesado</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="gForce">G-Force Estimada de las Lavadoras-Extractoras:</label>
+                    <select id="gForce" required>
+                        <option value="Baja (~100G)">Baja (~100G)</option>
+                        <option value="Media (~200G)">Media (~200G)</option>
+                        <option value="Alta (300G o más)">Alta (300G o más)</option>
+                    </select>
+                </div>
+                <button type="button" class="wizard-prev" id="toStep2">Anterior</button>
+                <button type="button" class="wizard-next" id="toStep4">Ver Resultados</button>
+            </form>
+            <!-- Paso 4: Resultados -->
+            <div id="step4" class="wizard-step">
+                <h2>Resultados</h2>
+                <div class="result-block">
+                    <h3>Desglose de Carga Diaria</h3>
+                    <ul>
+                        <li>Por Habitaciones (base): <span id="resRoomLoad">-</span></li>
+                        <li>Ropa de Cama Especial: <span id="resSpecialBedding">-</span></li>
+                        <li>F&B (Restaurante/Banquetes): <span id="resFB">-</span></li>
+                        <li>Piscina/Spa/Gimnasio: <span id="resPoolSpa">-</span></li>
+                        <li><strong>Total Diario:</strong> <span id="resTotalDaily">-</span></li>
+                    </ul>
+                </div>
+                <div class="result-block">
+                    <h3>Sumario General</h3>
+                    <ul>
+                        <li>Total Semanal: <span id="resTotalWeekly">-</span></li>
+                        <li>Capacidad por Hora Necesaria: <span id="resCapacityHour">-</span></li>
+                        <li>Capacidad de Lavado por Ciclo: <span id="resWasherCycle">-</span></li>
+                        <li>Capacidad de Secado por Ciclo: <span id="resDryerCycle">-</span></li>
+                    </ul>
+                </div>
+                <div class="result-block">
+                    <h3>Recomendación de Equipos UniMac</h3>
+                    <div id="resWasherRec">-</div>
+                    <div id="resDryerRec">-</div>
+                </div>
+                <div class="result-block">
+                    <h3>Notas Importantes</h3>
+                    <ul>
+                        <li>Estas son estimaciones. La carga real puede variar.</li>
+                        <li>Se recomienda redundancia (ej. 2 lavadoras en lugar de 1 grande) para continuidad operativa.</li>
+                        <li>Consulte con un distribuidor UniMac para modelos específicos y dimensionamiento final.</li>
+                        <li>Considere equipos de planchado si maneja alta calidad de mantelería o ropa de cama.</li>
+                    </ul>
+                </div>
+                <button type="button" class="wizard-prev" id="toStep3">Anterior</button>
+            </div>
+        </div>
+    </div>
+    <script src="wizard.js"></script>
+</body>
+</html> 
