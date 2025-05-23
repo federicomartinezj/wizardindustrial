@@ -72,10 +72,8 @@ document.getElementById('toStep3').addEventListener('click', function() {
 
 // Paso 3: Validación
 function validateStep3() {
-    const soilLevel = document.getElementById('soilLevel').value;
-    const gForce = document.getElementById('gForce').value;
-    if (!soilLevel) return false;
-    if (!gForce) return false;
+    const performanceProfile = document.getElementById('performanceProfile').value;
+    if (!performanceProfile) return false;
     return true;
 }
 document.getElementById('toStep2').addEventListener('click', function() {
@@ -120,41 +118,39 @@ const WASHER_PRODUCTIVITY_LOADS_PER_HOUR = {"Económico": 1.5, "Alto Desempeño"
 const DRYER_TO_WASHER_RATIO = {"Económico": 2.0, "Alto Desempeño": 1.25};
 
 const MACHINE_DATABASE_UNIMAC = {
-    washers: {
-        "Económico": [
-            {brand: "UniMac", model: "UCx020", capacity_lbs: 20, capacity_kg: 9.0},
-            {brand: "UniMac", model: "UCx030", capacity_lbs: 30, capacity_kg: 14.0},
-            {brand: "UniMac", model: "UCx040", capacity_lbs: 40, capacity_kg: 18.0},
-            {brand: "UniMac", model: "UCx060", capacity_lbs: 60, capacity_kg: 27.0},
-            {brand: "UniMac", model: "UCx080", capacity_lbs: 80, capacity_kg: 36.0},
-            {brand: "UniMac", model: "UCx100", capacity_lbs: 100, capacity_kg: 45.0}
-        ],
-        "Alto Desempeño": [
-            {brand: "UniMac", model: "UWx045", capacity_lbs: 45, capacity_kg: 20.4},
-            {brand: "UniMac", model: "UWx065", capacity_lbs: 65, capacity_kg: 29.5},
-            {brand: "UniMac", model: "UWx085", capacity_lbs: 85, capacity_kg: 38.6},
-            {brand: "UniMac", model: "UWx105", capacity_lbs: 105, capacity_kg: 47.6},
-            {brand: "UniMac", model: "UWx130", capacity_lbs: 130, capacity_kg: 59.0},
-            {brand: "UniMac", model: "UWx160", capacity_lbs: 160, capacity_kg: 72.6},
-            {brand: "UniMac", model: "UWx200", capacity_lbs: 200, capacity_kg: 90.7}
-        ]
-    },
-    dryers: {
-        "Económico": [
-            {brand: "UniMac", model: "Uxx30", capacity_lbs: 30, capacity_kg: 13.6},
-            {brand: "UniMac", model: "Ux055", capacity_lbs: 55, capacity_kg: 24.9},
-            {brand: "UniMac", model: "Ux075", capacity_lbs: 75, capacity_kg: 34.0},
-            {brand: "UniMac", model: "Ux120", capacity_lbs: 120, capacity_kg: 54.4},
-            {brand: "UniMac", model: "Ux170", capacity_lbs: 170, capacity_kg: 77.1},
-            {brand: "UniMac", model: "Ux200", capacity_lbs: 200, capacity_kg: 90.7}
-        ],
-        "Alto Desempeño": [
-            {brand: "UniMac", model: "UxT30", capacity_lbs: 30, capacity_kg: 13.6},
-            {brand: "UniMac", model: "UxT45", capacity_lbs: 45, capacity_kg: 20.4},
-            {brand: "UniMac", model: "UST30", capacity_lbs: 30, capacity_kg: 13.6},
-            {brand: "UniMac", model: "UST50", capacity_lbs: 50, capacity_kg: 22.7}
-        ]
-    }
+    washers: [
+        {brand: "UniMac", model: "UCx020", capacity_lbs: 20, capacity_kg: 9.0}, // Económico
+        {brand: "UniMac", model: "UCx030", capacity_lbs: 30, capacity_kg: 14.0}, // Económico
+        {brand: "UniMac", model: "UCx040", capacity_lbs: 40, capacity_kg: 18.0}, // Económico
+        {brand: "UniMac", model: "UCx060", capacity_lbs: 60, capacity_kg: 27.0}, // Económico
+        {brand: "UniMac", model: "UCx080", capacity_lbs: 80, capacity_kg: 36.0}, // Económico
+        {brand: "UniMac", model: "UCx100", capacity_lbs: 100, capacity_kg: 45.0}, // Económico
+        {brand: "UniMac", model: "UWx045", capacity_lbs: 45, capacity_kg: 20.4}, // Alto Desempeño
+        {brand: "UniMac", model: "UWx065", capacity_lbs: 65, capacity_kg: 29.5}, // Alto Desempeño
+        {brand: "UniMac", model: "UWx085", capacity_lbs: 85, capacity_kg: 38.6}, // Alto Desempeño
+        {brand: "UniMac", model: "UWx105", capacity_lbs: 105, capacity_kg: 47.6}, // Alto Desempeño
+        {brand: "UniMac", model: "UWx130", capacity_lbs: 130, capacity_kg: 59.0}, // Alto Desempeño
+        {brand: "UniMac", model: "UWx160", capacity_lbs: 160, capacity_kg: 72.6}, // Alto Desempeño
+        {brand: "UniMac", model: "UWx200", capacity_lbs: 200, capacity_kg: 90.7}, // Alto Desempeño
+        {brand: "UniMac", model: "UY350", capacity_lbs: 77, capacity_kg: 34.9}, // Alto Desempeño (ejemplo, verificar si aplica)
+        {brand: "UniMac", model: "UY450", capacity_lbs: 100, capacity_kg: 45.4}, // Alto Desempeño (ejemplo, verificar si aplica)
+        {brand: "UniMac", model: "UY600", capacity_lbs: 132, capacity_kg: 59.9}, // Alto Desempeño (ejemplo, verificar si aplica)
+        {brand: "UniMac", model: "UY800", capacity_lbs: 180, capacity_kg: 81.6}, // Alto Desempeño (ejemplo, verificar si aplica)
+        {brand: "UniMac", model: "UY1000", capacity_lbs: 230, capacity_kg: 104.3}, // Alto Desempeño (ejemplo, verificar si aplica)
+        {brand: "UniMac", model: "UY1200", capacity_lbs: 275, capacity_kg: 124.7}  // Alto Desempeño (ejemplo, verificar si aplica)
+    ],
+    dryers: [
+        {brand: "UniMac", model: "Uxx30", capacity_lbs: 30, capacity_kg: 13.6}, // Económico
+        {brand: "UniMac", model: "Ux055", capacity_lbs: 55, capacity_kg: 24.9}, // Económico
+        {brand: "UniMac", model: "Ux075", capacity_lbs: 75, capacity_kg: 34.0}, // Económico
+        {brand: "UniMac", model: "Ux120", capacity_lbs: 120, capacity_kg: 54.4}, // Económico
+        {brand: "UniMac", model: "Ux170", capacity_lbs: 170, capacity_kg: 77.1}, // Económico
+        {brand: "UniMac", model: "Ux200", capacity_lbs: 200, capacity_kg: 90.7}, // Económico
+        {brand: "UniMac", model: "UxT30", capacity_lbs: 30, capacity_kg: 13.6}, // Alto Desempeño
+        {brand: "UniMac", model: "UxT45", capacity_lbs: 45, capacity_kg: 20.4}, // Alto Desempeño
+        {brand: "UniMac", model: "UST30", capacity_lbs: 30, capacity_kg: 13.6}, // Alto Desempeño
+        {brand: "UniMac", model: "UST50", capacity_lbs: 50, capacity_kg: 22.7}  // Alto Desempeño
+    ]
 };
 
 function getBaseCapacityPerRoom(serviceLevel, unit) {
@@ -181,7 +177,21 @@ function getPoolSpaLinenWeight(unit) {
 }
 
 function recommendUniMacMachines(totalCapacity, unit, type, performanceProfile) {
-    const db = MACHINE_DATABASE_UNIMAC[type][performanceProfile];
+    // Filtrar la base de datos de máquinas por tipo (washers/dryers)
+    const allMachinesOfType = MACHINE_DATABASE_UNIMAC[type];
+
+    // Filtrar aún más por el perfil de desempeño seleccionado
+    const db = allMachinesOfType.filter(m => {
+        if (performanceProfile === 'Económico') {
+            // Máquinas Económicas (ej: UCx, Ux series)
+            return m.brand === 'UniMac' && (m.model.startsWith('UCx') || m.model.startsWith('Ux') || m.model === 'Uxx30');
+        } else if (performanceProfile === 'Alto Desempeño') {
+            // Máquinas de Alto Desempeño (ej: UWx, UY, UxT, UST series)
+            return m.brand === 'UniMac' && (m.model.startsWith('UWx') || m.model.startsWith('UY') || m.model.startsWith('UxT') || m.model.startsWith('UST'));
+        }
+        return false; // Si no se selecciona un perfil, no retornar ninguna máquina
+    });
+
     let options = [];
 
     // Filtrar máquinas disponibles por la unidad seleccionada
@@ -220,12 +230,13 @@ function recommendUniMacMachines(totalCapacity, unit, type, performanceProfile) 
             return 0;
         });
         options = options.slice(0, 2);
-    } else if (options.length === 0 && availableMachines.length > 0) {
-        const largestMachine = availableMachines[availableMachines.length - 1];
-        options.push(`Considerar: 1 x ${largestMachine.brand} ${largestMachine.model} (${largestMachine.capacity_user_unit.toFixed(1)} ${unit}) (puede requerir ajuste de carga)`);
+    } else if (options.length === 0 && allMachinesOfType.length > 0) { // Considerar todas las máquinas del tipo si no se encuentra en el perfil
+         // Si no hay opciones que cumplan la capacidad DENTRO del perfil, sugerir la más grande disponible DEL TIPO como fallback
+         const largestMachineOfType = allMachinesOfType[allMachinesOfType.length - 1];
+         options.push(`Considerar (fuera del perfil seleccionado): 1 x ${largestMachineOfType.brand} ${largestMachineOfType.model} (${largestMachineOfType.capacity_user_unit.toFixed(1)} ${unit}) (puede requerir ajuste de carga)`);
     }
 
-    return options.length ? options.join('<br>') : 'No se encontró configuración UniMac adecuada.';
+    return options.length ? options.join('<br>') : 'No se encontró configuración UniMac adecuada para el perfil seleccionado.';
 }
 
 function calcularYMostrarResultados() {
@@ -249,6 +260,24 @@ function calcularYMostrarResultados() {
     // Paso 3
     const performanceProfile = document.getElementById('performanceProfile').value;
 
+    // Mapear perfil de desempeño a factores de cálculo (usando valores de la versión anterior)
+    let loadsPerHour;
+    let dryerRatio;
+
+    if (performanceProfile === 'Económico') {
+        // Corresponde a ~100G (Baja G-Force) y productividad Normal
+        loadsPerHour = 1.5; // WASHER_PRODUCTIVITY_LOADS_PER_HOUR["Normal"]
+        dryerRatio = 2.0;   // DRYER_TO_WASHER_RATIO_BY_GFORCE["Baja (~100G)"]
+    } else if (performanceProfile === 'Alto Desempeño') {
+        // Corresponde a ~300G (Alta G-Force) y productividad Ligera
+        loadsPerHour = 2.0; // WASHER_PRODUCTIVITY_LOADS_PER_HOUR["Ligero"]
+        dryerRatio = 1.25;  // DRYER_TO_WASHER_RATIO_BY_GFORCE["Alta (300G o más)"]
+    } else {
+        // Fallback o manejar caso no esperado (aunque el select HTML lo previene)
+        loadsPerHour = 1.5; // Default a Normal
+        dryerRatio = 1.5;   // Default a Media
+    }
+
     // Cálculos
     const baseRoomLoad = getBaseCapacityPerRoom(hotelType, unit) * rooms * occupancy;
     const specialBeddingLoad = specialBedding ? getSpecialBeddingAddition(unit) * rooms * occupancy : 0;
@@ -265,9 +294,7 @@ function calcularYMostrarResultados() {
 
     if (effectiveHours > 0) {
         capacityHour = totalWeekly / effectiveHours;
-        const loadsPerHour = WASHER_PRODUCTIVITY_LOADS_PER_HOUR[performanceProfile];
         washerCycle = capacityHour / loadsPerHour;
-        const dryerRatio = DRYER_TO_WASHER_RATIO[performanceProfile];
         dryerCycle = washerCycle * dryerRatio;
     }
 
